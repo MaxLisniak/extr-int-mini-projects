@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 7px;
+  touch-action: none;
+}
+
+#item {
+  width: 100px;
+  height: 100px;
+  background-color: rgb(213, 206, 145);
+  border: 10px solid rgba(136, 136, 136, .5);
+  border-radius: 50%;
+  cursor: move;
+  position: absolute;
+  touch-action: none;
+  user-select: none;
+}
+
+#item:active {
+  background-color: purple;
+}
