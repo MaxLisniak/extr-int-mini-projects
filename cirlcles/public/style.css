@@ -7,9 +7,9 @@
   width: 100vw;
   height: 100vh;
   background-color: #333;
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
   overflow: hidden;
   border-radius: 7px;
   touch-action: none;
@@ -25,6 +25,8 @@
   position: absolute;
   touch-action: none;
   user-select: none;
+  top: 10px;
+  left: 10px;
 }
 
 #item:active {

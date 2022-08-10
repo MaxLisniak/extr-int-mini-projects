@@ -1,0 +1,22 @@
+{
+  "name": "cirlcles",
+  "version": "1.0.0",
+  "description": "circles ",
+  "main": "socket-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-server": "nodemon socket-server.js",
+    "start-client": "nodemon socket-client.js"
+  },
+  "keywords": [
+    "socket",
+    "circles"
+  ],
+  "author": "Maksym",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19",
+    "socket.io": "^4.5.1"
+  }
+}

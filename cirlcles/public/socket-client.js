@@ -3,8 +3,7 @@
 let x = 0;
 let y = 0;
 
-// Dragging state
-let dragging = false;
+const socket = io();
 
 // Query the element
 const ele = document.querySelector("#item");
@@ -22,8 +21,6 @@ const mouseDownHandler = function (e) {
 };
 
 const mouseMoveHandler = async function (e) {
-  //Set dragging state to  true
-  dragging = true;
 
   //Calculate the difference 
   const dx = e.clientX - x;
@@ -34,41 +31,42 @@ const mouseMoveHandler = async function (e) {
   ele.style.left = `${ele.offsetLeft + dx}px`;
 
   // Reassign the position of mouse
-  x = e.clientX;
   y = e.clientY;
+  x = e.clientX;
 
-  // Post current element's coordinates to server
-  await fetch('http://localhost:3000', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ x: ele.style.left, y: ele.style.top })
-  })
+  socket.emit('move', { x: ele.style.left, y: ele.style.top });
+
 };
 
 const mouseUpHandler = function () {
   // Remove the handlers of `mousemove` and `mouseup`
   document.removeEventListener('mousemove', mouseMoveHandler);
   document.removeEventListener('mouseup', mouseUpHandler);
-  // Set dragging state to false
-  dragging = false;
 };
 
 ele.addEventListener('mousedown', mouseDownHandler);
 
-setInterval(async function () {
-  // For elements that're not being dragged get coordinates from the 
-  // server and update their own
-  if (!dragging) {
-    await fetch('http://localhost:3000')
-      .then(results => results.json())
-      .then(fetched => {
 
-        ele.style.top = `${fetched.y}px`;
-        ele.style.left = `${fetched.x}px`;
 
-      })
-  }
+// setInterval(async function () {
+//   // For elements that're not being dragged get coordinates from the 
+//   // server and update their own
+//   if (!dragging) {
+//     await fetch('http://localhost:3000')
+//       .then(results => results.json())
+//       .then(fetched => {
 
-}, 25);
+//         ele.style.top = `${fetched.y}px`;
+//         ele.style.left = `${fetched.x}px`;
+
+//       })
+//   }
+
+// }, 25);
+
+socket.on('move', function (coordinates) {
+
+  ele.style.top = `${coordinates.y}`;
+  ele.style.left = `${coordinates.x}`;
+
+});
